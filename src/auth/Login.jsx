@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { api } from "../utils/api";
+import utils from "../utils/common.jsx";
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,21 +17,18 @@ export default function Login() {
     setError("");
 
     try {
-      await axios.post(
-        "http://localhost:8080/api/auth/login",
-        {
+      await api({
+        url: "/auth/login",
+        method: "POST",
+        data: {
           userId,
           password,
         },
-        {
-          withCredentials: true, // ⭐ 세션 쿠키 필수
-        }
-      );
-
-      // 로그인 성공 → 홈으로 이동
+      });
+    
       navigate("/");
     } catch (err) {
-      setError("아이디 또는 비밀번호가 올바르지 않습니다.");
+      utils.cmmnToast("아이디 또는 비밀번호가 올바르지 않습니다.");
     }
   };
 
