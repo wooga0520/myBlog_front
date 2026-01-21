@@ -512,3 +512,57 @@ a {
   }
 }
 
+/* ===== Main Section Layout ===== */
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+}
+
+.main-section {
+  position: relative;
+  padding-top: 0.5rem;
+}
+
+/* Intro는 조금 더 강조 */
+.intro-section {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e3edf7;
+}
+
+/* ===== Section Header ===== */
+.section-header {
+  margin-bottom: 1.6rem;
+}
+
+.section-header h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+  color: #1e3a5f;
+}
+
+.section-header p {
+  font-size: 0.9rem;
+  color: #6b8fb8;
+}
+
+/* ===== Swiper spacing fix ===== */
+.swiper {
+  padding-bottom: 2.2rem;
+}
+
+/* ===== Section Divider (optional visual hint) ===== */
+.main-section:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: -2.2rem;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #dce9f6,
+    transparent
+  );
+}

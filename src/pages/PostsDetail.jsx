@@ -1,21 +1,23 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-
-const mockPost = {
-  id: "1",
-  title: "React로 블로그 만들기",
-  author: "Park Jungwook",
-  date: "2025.12.10",
-  content: "React로 블로그를 만드는 과정을 정리합니다.\n\n라우터와 컴포넌트 구조가 핵심입니다.",
-};
+import { dummyPosts } from "../data/posts";
 
 export default function PostDetail() {
   const { id } = useParams();
+
+  // 🔑 URL id로 게시글 찾기
+  const post = dummyPosts.find((p) => p.id === Number(id));
+
+  // ❌ 없는 글 처리
+  if (!post) {
+    return <h2>❌ 존재하지 않는 게시글입니다.</h2>;
+  }
+
   const [isEdit, setIsEdit] = useState(false);
 
-  const [title, setTitle] = useState(mockPost.title);
-  const [author, setAuthor] = useState(mockPost.author);
-  const [content, setContent] = useState(mockPost.content);
+  const [title, setTitle] = useState(post.title);
+  const [author, setAuthor] = useState(post.author);
+  const [content, setContent] = useState(post.content);
 
   return (
     <article className="post-detail">
@@ -39,13 +41,13 @@ export default function PostDetail() {
               onChange={(e) => setAuthor(e.target.value)}
             />
             <span>·</span>
-            <span>{mockPost.date}</span>
+            <span>{post.date}</span>
           </>
         ) : (
           <>
             <span>{author}</span>
             <span>·</span>
-            <span>{mockPost.date}</span>
+            <span>{post.date}</span>
           </>
         )}
       </div>
