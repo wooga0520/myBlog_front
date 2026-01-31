@@ -1,84 +1,99 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { api } from "../utils/api";
 import utils from "../utils/common.jsx";
-
 
 export default function Login() {
   const navigate = useNavigate();
 
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
     try {
       await api({
         url: "/auth/login",
         method: "POST",
-        data: {
-          userId,
-          password,
-        },
+        data: { userId, password },
       });
-    
+
       navigate("/");
-    } catch (err) {
+    } catch {
       utils.cmmnToast("아이디 또는 비밀번호가 올바르지 않습니다.");
     }
   };
 
   return (
-    <div className="bg-sky">
-      <div className="wrapper">
-        <div className="login-container">
-          <h1 className="login-title">로그인</h1>
-          <p className="login-desc">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        <div className="rounded-xl border bg-card p-8 shadow-sm">
+          {/* Title */}
+          <h1 className="text-2xl font-bold text-center text-foreground">
+            로그인
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground text-center">
             아이디와 비밀번호를 입력해 주세요
           </p>
 
-          <form className="login-form" onSubmit={handleSubmit}>
-            <div className="login-field">
-              <label htmlFor="userId">아이디</label>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+            <div className="space-y-1">
+              <label className="text-sm font-medium">아이디</label>
               <input
-                id="userId"
                 type="text"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
                 placeholder="아이디를 입력하세요"
                 required
+                className="
+                  w-full rounded-md border bg-background px-3 py-2 text-sm
+                  focus:outline-none focus:ring-2 focus:ring-ring
+                "
               />
             </div>
 
-            <div className="login-field">
-              <label htmlFor="password">비밀번호</label>
+            <div className="space-y-1">
+              <label className="text-sm font-medium">비밀번호</label>
               <input
-                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="비밀번호를 입력하세요"
                 required
+                className="
+                  w-full rounded-md border bg-background px-3 py-2 text-sm
+                  focus:outline-none focus:ring-2 focus:ring-ring
+                "
               />
             </div>
 
-            {error && <p className="login-error">{error}</p>}
-
-            <button type="submit" className="btn primary login-btn">
+            <button
+              type="submit"
+              className="
+                w-full rounded-md bg-primary text-primary-foreground
+                py-2.5 text-sm font-medium
+                hover:opacity-90 transition
+              "
+            >
               로그인
             </button>
           </form>
 
-          <div className="login-links">
-            <Link to="/auth/join">회원가입</Link>
-            <span className="divider">|</span>
-            <Link to="/auth/find-id">아이디 찾기</Link>
-            <span className="divider">|</span>
-            <Link to="/auth/find-password">비밀번호 찾기</Link>
+          {/* Links */}
+          <div className="mt-6 flex justify-center gap-3 text-xs text-muted-foreground">
+            <Link to="/auth/join" className="hover:text-foreground">
+              회원가입
+            </Link>
+            <span>·</span>
+            <Link to="/auth/find-id" className="hover:text-foreground">
+              아이디 찾기
+            </Link>
+            <span>·</span>
+            <Link to="/auth/find-password" className="hover:text-foreground">
+              비밀번호 찾기
+            </Link>
           </div>
         </div>
       </div>

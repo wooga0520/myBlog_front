@@ -14,26 +14,34 @@ export default function Main() {
   };
 
   return (
-    <div className="bg-sky">
-      <div className="wrapper main-wrapper">
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto max-w-6xl px-6 py-16">
 
-        <section className="main-section intro-section">
-          <h1 className="intro-title">기술 블로그 & 포트폴리오</h1>
-          <p className="intro-text">
+        {/* Intro Section */}
+        <section className="mb-20 text-center">
+          <h1 className="mb-6 font-serif text-4xl font-semibold tracking-tight md:text-5xl">
+            기술 블로그 & 포트폴리오
+          </h1>
+          <p className="mx-auto max-w-2xl text-muted-foreground leading-relaxed">
             백엔드 개발을 중심으로 공부한 내용과 프로젝트 경험을 정리합니다.
             기술 블로그이자 이력서로 활용 가능한 개인 웹 서비스입니다.
           </p>
         </section>
 
-        <section className="main-section">
-          <div className="section-header">
-            <h2>인기 게시글</h2>
-            <p>많이 조회된 기술 글을 한눈에 확인하세요</p>
+        {/* Popular Posts */}
+        <section>
+          <div className="mb-8 flex flex-col gap-2">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              인기 게시글
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              많이 조회된 기술 글을 한눈에 확인하세요
+            </p>
           </div>
 
           <Swiper
             modules={[Pagination, Autoplay]}
-            spaceBetween={20}
+            spaceBetween={24}
             slidesPerView={1}
             pagination={{ clickable: true }}
             autoplay={{ delay: 3500 }}
@@ -44,20 +52,31 @@ export default function Main() {
           >
             {dummyPosts.map((post) => (
               <SwiperSlide key={post.id}>
-                <div
-                  className="card"
+                <article
                   onClick={() => viewDetail(post.id)}
+                  className="
+                    group h-full cursor-pointer rounded-xl
+                    border border-border bg-card p-6
+                    transition-all duration-200
+                    hover:-translate-y-1 hover:shadow-lg
+                  "
                 >
-                  <h3 className="card-title">{post.title}</h3>
-                  <p className="card-excerpt">{post.excerpt}</p>
-                  <span className="card-date">{post.date}</span>
-                </div>
+                  <h3 className="mb-2 text-lg font-semibold group-hover:text-primary">
+                    {post.title}
+                  </h3>
+                  <p className="mb-4 text-sm text-muted-foreground line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  <span className="text-xs text-muted-foreground">
+                    {post.date}
+                  </span>
+                </article>
               </SwiperSlide>
             ))}
           </Swiper>
         </section>
 
       </div>
-    </div>
+    </main>
   );
 }
